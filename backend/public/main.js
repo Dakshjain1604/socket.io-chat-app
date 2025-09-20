@@ -36,10 +36,9 @@ function addMessageToUI(isOwnMessage,data){
     clearFeedback();
     const element=`  
     <li class="${isOwnMessage?"message-right" :"message-left"}">
-        <p class="message">
-            ${data.message}
-            <span>${data.name} ◉ ${moment(data.dateTime).fromNow()}</span>
-        </p>
+        <span class="sender-name">${data.name}</span>
+        <p class="message">${data.message}</p>
+        <span class="meta">${moment(data.dateTime).fromNow()}</span>
      </li>`
      messageContainer.innerHTML+=element
      scrollToBottom();
