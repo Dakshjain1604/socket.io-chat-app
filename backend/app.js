@@ -16,30 +16,26 @@ const io = socketIo(server, {
         credentials: true
     }
 });
-
 const PORT = process.env.PORT || 4000;
 
-// Middleware
 app.use(cors({
     origin: "http://localhost:3000",
     credentials: true
 }));
 app.use(express.json());
-
 // Store connected sockets
 let socketsConnected = new Set();
 
-// Socket.io connection handling
-io.on('connection', onConnected);
 
+io.on('connection', onConnected);
 function onConnected(socket) {
     console.log(`Socket connected: ${socket.id}`);
     socketsConnected.add(socket.id);
     
-    // Send total clients count to all connected clients
+    
     io.emit('clients-total', socketsConnected.size);
     
-    // Handle disconnect
+   
     socket.on('disconnect', () => {
         console.log(`Socket disconnected: ${socket.id}`);
         socketsConnected.delete(socket.id);
